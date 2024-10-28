@@ -35,7 +35,7 @@ public class UsuarioController {
         return usuarioService.getAllUsuarios();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getUsuarioByID(@PathVariable Long id) {
         Optional<Usuario> usuOptional = usuarioService.getUsuarioByID(id);
         if (usuOptional.isEmpty()) {
@@ -87,7 +87,7 @@ public class UsuarioController {
         if (validacion) {
             return ResponseEntity.ok().body(new ErrorResponse("El usuario fue autenticado exitosamente"));
         }
-        return ResponseEntity.ok().body(new ErrorResponse("Las credenciales ingresadas son incorrectas"));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("Las credenciales ingresadas son incorrectas"));
     }
     
 
